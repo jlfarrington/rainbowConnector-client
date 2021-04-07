@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Form, Input, Button } from "antd";
 
 interface RegisterProps {
     updateToken: (newToken: string) => void
@@ -23,7 +24,6 @@ export default class Register extends Component <RegisterProps, RegisterState> {
     }
 
     handleSubmit(event: React.ChangeEvent<HTMLFormElement>): void {
-       event.preventDefault();
        fetch('http://localhost:3000/user/register', {
            method: 'POST',
            body: JSON.stringify({user: {
@@ -47,36 +47,72 @@ export default class Register extends Component <RegisterProps, RegisterState> {
         return(
             <div className="Register">
                 <h1>Register</h1>
-                <form onSubmit={(e: React.ChangeEvent<HTMLFormElement>): void => this.handleSubmit(e)}>
-                   
-                    <label htmlFor="firstName">First Name:</label>
-                    <input onChange={(e: React.ChangeEvent<HTMLInputElement>): void => this.setState({ firstName: e.target.value})}
-                    name="firstName"
-                    placeholder="Jane"
-                    value={this.state.firstName}/>
-                    
-                    <label htmlFor="lastName">Last Name:</label>
-                    <input onChange={(e: React.ChangeEvent<HTMLInputElement>): void => this.setState({ lastName: e.target.value})}
-                    name="lastName"
-                    placeholder="Doe"
-                    value={this.state.lastName}/>
-                    
-                    <label htmlFor="email">Email</label>
-                    <input onChange={(e: React.ChangeEvent<HTMLInputElement>): void => this.setState({ email: e.target.value })}
-                    name="email"
-                    placeholder="email@email.com"
-                    value={this.state.email}/>
-                    
-                    <label htmlFor="password">Password</label>
-                    <input onChange={(e: React.ChangeEvent<HTMLInputElement>): void => this.setState({ password: e.target.value })}
-                    name="password"
-                    placeholder="password"
-                    value={this.state.password}
-                    type="password"/>
-                    
-                    <button>Register</button>
-                </form>
-            </div>
+
+        <Form name="normal_long"
+          className="register-form"
+          onFinish={(e: React.ChangeEvent<HTMLFormElement>): void =>
+            this.handleSubmit(e)
+          }>
+            <Form.Item
+            className="first-name"
+            rules={[{ required: true, message: "Please input your first name!" }]}
+          >
+            <Input
+              placeholder="First Name"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                this.setState({ firstName: e.target.value})
+              }
+            />
+            </Form.Item>
+
+              <Form.Item
+            className="last-name"
+            rules={[{ required: true, message: "Please input your last name!" }]}
+          >
+            <Input
+              placeholder="Last Name"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                this.setState({ lastName: e.target.value})
+              }
+            />
+            </Form.Item>
+
+
+          <Form.Item
+            className="email"
+            rules={[{ required: true, message: "Please input your Email!" }]}
+          >
+            <Input
+              placeholder="Email"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                this.setState({ email: e.target.value })
+              }
+            />
+          </Form.Item>
+
+          <Form.Item
+            className="password"
+            rules={[{ required: true, message: "Please input your Password!" }]}
+          >
+            <Input
+              type="password"
+              placeholder="Password"
+              onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
+                this.setState({ password: e.target.value })
+              }
+            />
+          </Form.Item>
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              className="register-form-button"
+            >
+              Register
+            </Button>
+          </Form.Item>
+        </Form>
+        </div>
         )
     }
 }
