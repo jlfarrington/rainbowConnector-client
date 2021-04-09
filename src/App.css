@@ -1,6 +1,9 @@
 @import 'antd/dist/antd.css';
 
-
+#mapId {
+  height: 400px;
+  width: 800px;
+}
 
 
 @media (prefers-reduced-motion: no-preference) {
@@ -36,3 +39,4 @@
 button {
   font-size: calc(10px + 2vmin);
 }
+

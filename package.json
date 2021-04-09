@@ -7,9 +7,14 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@types/react-leaflet": "^2.8.1",
+    "@types/react-router-dom": "^5.1.7",
     "antd": "^4.15.0",
+    "leaflet": "^1.7.1",
     "react": "^17.0.0",
-    "react-dom": "^17.0.0"
+    "react-dom": "^17.0.0",
+    "react-leaflet": "^3.1.0",
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "@types/react": "^17.0.0",
