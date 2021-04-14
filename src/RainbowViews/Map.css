@@ -1,0 +1,11 @@
+.rainbow-icon {
+    background: transparent;
+    background-image: url('../rainbow-icon.png');
+}
+
+.rainbow-icon:after {
+    display: block;
+    width: 30px;
+    height: 30px;
+    content: "🌈"; 
+}

@@ -60,7 +60,6 @@ export default class Login extends Component<LoginProps, LoginState> {
                 this.setState({ email: e.target.value })
               }
             />
-            `
           </Form.Item>
 
           <Form.Item

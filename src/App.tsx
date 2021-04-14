@@ -4,12 +4,13 @@ import "./App.css";
 import Auth from "./Auth/Auth";
 import Map from "./RainbowViews/Map";
 
+
 interface AppProps {}
 
 interface AppState {
   sessionToken: string | null;
-  lat: string | null;
-  long: string | null;
+  lat: number;
+  long: number;
   rainbowData: Array<Rainbow> | null;
 }
 
@@ -17,8 +18,8 @@ interface Rainbow {
   id: number;
   image: string;
   likes: number;
-  lat: string;
-  long: string;
+  lat: number;
+  long: number;
   createdAt: string;
   updatedAt: string;
   userId: number;
@@ -29,8 +30,8 @@ export default class App extends Component<AppProps, AppState> {
     super(props);
     this.state = {
       sessionToken: "",
-      lat: "",
-      long: "",
+      lat: 35,
+      long: -86,
       rainbowData: [],
     };
   }
@@ -46,8 +47,8 @@ export default class App extends Component<AppProps, AppState> {
   getLocation = () => {
     navigator.geolocation.getCurrentPosition(
       (location) => {
-        let latitude = location.coords.latitude.toString();
-        let longitude = location.coords.longitude.toString();
+        let latitude = location.coords.latitude
+        let longitude = location.coords.longitude
         if (location) {
           this.setState({
             lat: latitude,
@@ -60,24 +61,6 @@ export default class App extends Component<AppProps, AppState> {
     );
   };
 
-  getRainbows = (): void => {
-    if (this.state.sessionToken) {
-      fetch("http://localhost:3000/rainbow/", {
-        method: "GET",
-        headers: new Headers({
-          "Content-Type": "application/json",
-          Authorization: this.state.sessionToken,
-        }),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          this.setState({
-            rainbowData: data
-          });
-        });
-    }
-  };
 
   updateToken = (newToken: string) => {
     localStorage.setItem("token", newToken);
@@ -106,7 +89,6 @@ export default class App extends Component<AppProps, AppState> {
                   token={this.state.sessionToken}
                   lat={this.state.lat}
                   long={this.state.long}
-                  getRainbows={this.getRainbows}
                 />
               </Route>
             </Switch>
