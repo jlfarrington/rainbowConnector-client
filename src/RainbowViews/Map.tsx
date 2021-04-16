@@ -1,20 +1,33 @@
 import React, { Component } from "react";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import { LatLngTuple } from "leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  useMapEvents,
+  MapConsumer
+} from "react-leaflet";
+import { LatLngTuple, LeafletMouseEvent } from "leaflet";
 import L from "leaflet";
 import customIcon from "../rainbow-icon.png";
 
+import Button from 'antd'
+
+import ClickEvent from './ClickEvent'
+
 import "./Map.css";
+import { Layer } from "leaflet";
 
 interface MapProps {
   token: string | null;
-  lat: number
-  long: number
+  lat: number;
+  long: number;
 }
 
 interface MapState {
-  rainbowData: Array<Rainbow> | null
-  userPosition: LatLngTuple
+  rainbowData: Array<Rainbow> | null;
+  userPosition: LatLngTuple;
+  selectedPosition: LatLngTuple
 }
 
 interface Rainbow {
@@ -39,13 +52,14 @@ const rainbowIcon = L.icon({
 
 export default class Map extends Component<MapProps, MapState> {
   constructor(props: MapProps) {
-    super(props)
+    super(props);
     this.state = {
       rainbowData: null,
-      userPosition: [this.props.lat, this.props.long]
-    }
+      userPosition: [this.props.lat, this.props.long],
+      selectedPosition: [0, 0]
+    };
   }
-  
+
   getRainbows = (): void => {
     if (this.props.token) {
       fetch("http://localhost:3000/rainbow/", {
@@ -59,11 +73,14 @@ export default class Map extends Component<MapProps, MapState> {
         .then((data) => {
           console.log(data);
           this.setState({
-            rainbowData: data
+            rainbowData: data,
           });
         });
     }
   };
+
+
+
 
   componentDidMount() {
     this.getRainbows();
@@ -72,29 +89,66 @@ export default class Map extends Component<MapProps, MapState> {
   render() {
     return (
       <>
-      
         <h1>I'm the map</h1>
         <MapContainer
           id="mapId"
           center={this.state.userPosition}
           zoom={5}
-          scrollWheelZoom={false}
+          scrollWheelZoom={true}
         >
-          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <MapConsumer>
+            {(map) => {
+              map.on('click', (e: LeafletMouseEvent) => {
+                let theMarker: any;
+                const {lat, lng} = e.latlng;
+                this.setState({
+                  selectedPosition: [lat, lng]
+                })
+                console.log('you clicked the map at LAT: ' + lat + 'and LONG: ' + lng)
+
+                
+
+                theMarker = L.marker([lat, lng], {
+                  icon: rainbowIcon
+                })
+                theMarker.bindPopup('new rainbow?')
+                theMarker.addTo(map)
+                theMarker.openPopup();
+
+                map.on('click', (e: LeafletMouseEvent) => {
+                  if (theMarker != undefined) {
+                    theMarker.removeFrom(map);
+                  };
+                })
+
+                
+              } 
+              )
+              return null
+            }}
+          </MapConsumer>
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
           {this.state.rainbowData?.map((rainbow, index) => {
             let position: LatLngTuple = [rainbow.lat, rainbow.long];
             return (
               <Marker position={position} icon={rainbowIcon} key={index}>
                 <Popup>
-                    <h2>Rainbow Title</h2>
-                    <p>Likes on this rainbow : {rainbow.likes}</p>
-                  
+                  <h2>Rainbow Title</h2>
+                  <p>Likes on this rainbow : {rainbow.likes}</p>
                 </Popup>
               </Marker>
             );
           })}
+          {/* <ClickEvent /> */}
         </MapContainer>
       </>
     );
   }
 }
+
+
+
+
+
+
+
