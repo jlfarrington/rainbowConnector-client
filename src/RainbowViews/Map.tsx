@@ -12,8 +12,8 @@ import L from "leaflet";
 import customIcon from "../rainbow-icon.png";
 import $ from "jquery";
 
-import { Modal, Form, Button, Upload } from "antd";
-import { InboxOutlined } from "@ant-design/icons";
+import { Layout, Modal, Form, Button, Upload, message } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 
 import "./Map.css";
 
@@ -31,6 +31,7 @@ interface MapState {
   modalText: any;
   confirmLoading: boolean;
   userRainbow: string;
+  rainbowToUpdate: object;
 }
 
 interface Rainbow {
@@ -58,8 +59,8 @@ const formItemLayout = {
   wrapperCol: { span: 14 },
 };
 
-const CLOUD_URL = 'https://api.cloudinary.com/v1_1/rainbowconnector/image/upload'
-
+const CLOUD_URL =
+  "https://api.cloudinary.com/v1_1/rainbowconnector/image/upload";
 
 export default class Map extends Component<MapProps, MapState> {
   constructor(props: MapProps) {
@@ -72,6 +73,7 @@ export default class Map extends Component<MapProps, MapState> {
       modalText: "content",
       confirmLoading: false,
       userRainbow: "#",
+      rainbowToUpdate: {},
     };
   }
 
@@ -94,68 +96,70 @@ export default class Map extends Component<MapProps, MapState> {
     }
   };
 
-
   componentDidMount() {
     this.getRainbows();
   }
 
-
   reportRainbow = async (e: any): Promise<any> => {
     e.preventDefault();
-
     if (this.props.token) {
-      console.log('rainbow reported! wow!')
-      const response = await fetch('http://localhost:3000/rainbow/cloudsign', {
-        method: 'GET',
+      console.log("rainbow reported! wow!");
+      const response = await fetch("http://localhost:3000/rainbow/cloudsign", {
+        method: "GET",
         headers: {
-          'Authorization': this.props.token
-        }
-      })
+          Authorization: this.props.token,
+        },
+      });
 
       const { sig, ts } = await response.json();
 
-      const file = document.getElementById('file-input').files[0]
-      const formData = new FormData()
-      
-      formData.append('file', file);
-      formData.append('upload_preset', 'euqfw3n3')
-      formData.append('api_key', '118619554811256')
-      formData.append('signature', sig)
-      formData.append('timestamp', ts)
+      const file = document.getElementById("file-input").files[0];
+      const formData = new FormData();
 
-      const results = await (await fetch(CLOUD_URL, {
-        method: 'POST',
-        body: formData
-      })).json()
+      formData.append("file", file);
+      formData.append("upload_preset", "euqfw3n3");
+      formData.append("api_key", "118619554811256");
+      formData.append("signature", sig);
+      formData.append("timestamp", ts);
+
+      const results = await (
+        await fetch(CLOUD_URL, {
+          method: "POST",
+          body: formData,
+        })
+      ).json();
 
       console.log(results);
 
-      if(results) {
+      if (results) {
         this.setState({
-          userRainbow: results.secure_url
-        })
-        console.log(this.state.userRainbow)
-        const final = await (await fetch('http://localhost:3000/rainbow/report', {
-          method: 'POST',
-          headers: {
-            'Authorization': this.props.token,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            rainbow: {
-            image: this.state.userRainbow,
-            likes: 0,
-            lat: this.state.selectedPosition[0],
-            long: this.state.selectedPosition[1]
-            }
+          userRainbow: results.secure_url,
+        });
+        console.log(this.state.userRainbow);
+        const final = await (
+          await fetch("http://localhost:3000/rainbow/report", {
+            method: "POST",
+            headers: {
+              Authorization: this.props.token,
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              rainbow: {
+                image: this.state.userRainbow,
+                likes: 0,
+                lat: this.state.selectedPosition[0],
+                long: this.state.selectedPosition[1],
+              },
+            }),
           })
-        })).json()
+        ).json();
       }
 
-     
-
+      
     }
-  }
+  };
+
+  
 
 
   // MODAL FUNCS
@@ -169,12 +173,12 @@ export default class Map extends Component<MapProps, MapState> {
     console.log("modal triggered");
   };
 
-  
   handleOk = (): any => {
     if (!this.state.confirmLoading) {
       this.setState({
         confirmLoading: true,
       });
+      this.forceUpdate();
     }
     setTimeout(() => {
       this.setState({
@@ -194,21 +198,16 @@ export default class Map extends Component<MapProps, MapState> {
   };
 
   normFile = (e: any) => {
-    console.log('Upload event:', e);
+    console.log("Upload event:", e);
     if (Array.isArray(e)) {
       return e;
     }
     return e && e.fileList;
-  }
-
-
-
-
+  };
 
   render() {
     return (
       <>
-        <h1>I'm the map</h1>
         <MapContainer
           id="mapId"
           center={this.state.userPosition}
@@ -258,9 +257,7 @@ export default class Map extends Component<MapProps, MapState> {
             return (
               <Marker position={position} icon={rainbowIcon} key={index}>
                 <Popup>
-                  <h2>Rainbow Title</h2>
-                  <img src={rainbow.image} width="100px" />
-                  <p>Likes: {rainbow.likes}</p>
+                  <img src={rainbow.image} width="250px" />
                 </Popup>
               </Marker>
             );
@@ -274,46 +271,15 @@ export default class Map extends Component<MapProps, MapState> {
           confirmLoading={this.state.confirmLoading}
           onCancel={this.handleCancel}
         >
-          {/* <Form
-            name="validate_other"
-            {...formItemLayout}
-            onFinish={this.reportRainbow}
-            initialValues={{
-              "input-number": 3,
-              "checkbox-group": ["A", "B"],
-              rate: 3.5,
-            }}
-          >
-            <Form.Item label="Dragger">
-        <Form.Item name="dragger" valuePropName="fileList" getValueFromEvent={this.normFile} noStyle>
-          <Upload.Dragger name="files" action="/upload.do">
-            <p className="ant-upload-drag-icon">
-              <InboxOutlined />
-            </p>
-            <p className="ant-upload-text">Click or drag file to this area to upload</p>
-            <p className="ant-upload-hint">Support for a single or bulk upload.</p>
-          </Upload.Dragger>
-        </Form.Item>
-      </Form.Item>
-
-      <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form.Item>
-
-          </Form> */}
-
-
           <form encType='multipart/form-data' onSubmit={this.reportRainbow}>
             <input id="file-input" type="file"/>
+            <br/>
+            {(this.state.userRainbow === '#') ? <p>Upload an image of your rainbow!</p>: <p>success</p>}
             <button>Upload Image!</button>
-          <img src={this.state.userRainbow} alt="rainbow" width="200px"/>
+          
           </form>
-
-
         </Modal>
-      </>
+        </>
     );
   }
 }
