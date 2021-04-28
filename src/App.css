@@ -1,40 +1,44 @@
 @import 'antd/dist/antd.css';
 
-#mapId {
-  height: 400px;
-  width: 800px;
+html, body {
+  height: 100%;
 }
 
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.header-section {
+  background-color: #00A7E1;
+}
+
+#title {
+  color: white;
+  text-align: center;
+}
+
+.footer-section {
+  color: white;
+  background-color: #613DC1;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+.content-section {
+  flex: 1 0 auto;
+  background-color: #F0F7F4;
+}
+
+body {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-color: #F0F7F4;
 }
 
-.App-link {
-  color: #61dafb;
+.register-form-button {
+  background-color: #00A7E1;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-
 

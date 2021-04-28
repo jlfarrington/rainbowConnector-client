@@ -2,20 +2,16 @@ import React, { Component } from "react";
 import {
   MapContainer,
   TileLayer,
-  Marker,
-  Popup,
-  useMapEvents,
-  MapConsumer,
+  MapConsumer
 } from "react-leaflet";
 import { LatLngTuple, LeafletMouseEvent } from "leaflet";
 import L from "leaflet";
 import customIcon from "../rainbow-icon.png";
 import $ from "jquery";
 
-import { Layout, Modal, Form, Button, Upload, message } from "antd";
-import { UploadOutlined } from "@ant-design/icons";
+import { Modal } from "antd";
 
-import "./Map.css";
+import './Map.css'
 
 interface MapProps {
   token: string | null;
@@ -76,14 +72,20 @@ export default class Map extends Component<MapProps, MapState> {
       rainbowToUpdate: {},
     };
   }
+  componentDidMount() {
+    let token = localStorage.getItem('token')
+    this.getRainbows(token);
+  }
 
-  getRainbows = (): void => {
-    if (this.props.token) {
+
+  getRainbows = (token: string | null): void => {
+    if (token) {
+     
       fetch("http://localhost:3000/rainbow/", {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json",
-          Authorization: this.props.token,
+          Authorization: token,
         }),
       })
         .then((response) => response.json())
@@ -96,14 +98,27 @@ export default class Map extends Component<MapProps, MapState> {
     }
   };
 
-  componentDidMount() {
-    this.getRainbows();
+
+  likeRainbow = (rainbow: Rainbow): void => {
+    if (this.props.token) {
+      let newLikes = rainbow.likes + 1
+      fetch(`http://localhost:3000/rainbow/${rainbow.id}`, {
+        method: "PUT",
+        headers: {"Content-Type": "application/json",'Authorization': this.props.token}, body: JSON.stringify({
+            rainbow: {
+            image: rainbow.image,
+            likes: newLikes,
+            lat: rainbow.lat,
+            long: rainbow.long,
+          }})
+         }) .then(response => console.log(response.json()))
+    }
   }
 
+ 
   reportRainbow = async (e: any): Promise<any> => {
     e.preventDefault();
     if (this.props.token) {
-      console.log("rainbow reported! wow!");
       const response = await fetch("http://localhost:3000/rainbow/cloudsign", {
         method: "GET",
         headers: {
@@ -112,7 +127,7 @@ export default class Map extends Component<MapProps, MapState> {
       });
 
       const { sig, ts } = await response.json();
-
+      
       const file = document.getElementById("file-input").files[0];
       const formData = new FormData();
 
@@ -158,9 +173,7 @@ export default class Map extends Component<MapProps, MapState> {
       
     }
   };
-
   
-
 
   // MODAL FUNCS
 
@@ -207,13 +220,15 @@ export default class Map extends Component<MapProps, MapState> {
 
   render() {
     return (
-      <>
+      <div className="mapWrapper">
         <MapContainer
           id="mapId"
           center={this.state.userPosition}
           zoom={5}
           scrollWheelZoom={true}
+          style={{width: "device-width", height: "device-height"}}
         >
+
           <MapConsumer>
             {(map) => {
               map.on("click", (e: LeafletMouseEvent) => {
@@ -231,7 +246,7 @@ export default class Map extends Component<MapProps, MapState> {
                 });
 
                 let popupContent = `
-                <button class="delete-button">Report a Rainbow!</button>`;
+                <div className="reportPopup"><button class="delete-button">Report a Rainbow!</button></div>`;
 
                 theMarker.bindPopup(popupContent).on("popupopen", () => {
                   $(".delete-button").on("click", (e) => {
@@ -252,16 +267,41 @@ export default class Map extends Component<MapProps, MapState> {
             }}
           </MapConsumer>
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-          {this.state.rainbowData?.map((rainbow, index) => {
-            let position: LatLngTuple = [rainbow.lat, rainbow.long];
-            return (
-              <Marker position={position} icon={rainbowIcon} key={index}>
-                <Popup>
-                  <img src={rainbow.image} width="250px" />
-                </Popup>
-              </Marker>
-            );
-          })}
+         <MapConsumer>
+            {(map) => {
+              this.state.rainbowData?.map((rainbow, index) => {
+                let position: LatLngTuple = [rainbow.lat, rainbow.long];
+                let rainbowMarker: L.Layer;
+                rainbowMarker = L.marker(position, {
+                  icon: rainbowIcon,
+                })
+
+                let popupContent = `<div id="rainbowPopup"><img src=${rainbow.image} width="250px" key=${index} />
+                <div id="rainbowDetails"><button class="delete-button" id="likeBtn">Like</button> Likes: ${rainbow.likes}</div> </div>`
+                
+                const theRainbow = rainbow;
+
+                rainbowMarker.bindPopup(popupContent).on("popupopen", () => {
+                  $(".delete-button").on("click", (e) => {
+                    e.preventDefault();
+                    this.likeRainbow(theRainbow);
+                    rainbowMarker.closePopup()
+
+                  })
+                })
+                rainbowMarker.addTo(map);
+                
+            })
+            return null
+            }}
+
+
+         </MapConsumer>
+         
+         
+         
+         
+          
         </MapContainer>
 
         <Modal
@@ -279,7 +319,7 @@ export default class Map extends Component<MapProps, MapState> {
           
           </form>
         </Modal>
-        </>
+        </div>
     );
   }
 }

@@ -1,11 +1,63 @@
-.rainbow-icon {
-    background: transparent;
-    background-image: url('../rainbow-icon.png');
+#mapId {
+    height: 900px;
+    width: 900px;
 }
 
-.rainbow-icon:after {
-    display: block;
-    width: 30px;
-    height: 30px;
-    content: "🌈"; 
+
+@media(max-width: 900px) {
+    #mapId {
+        width: 600px;
+    }
 }
+
+@media(max-width: 600px) {
+    #mapId {
+        width: 430px;
+        height: 500px;
+    }
+}
+
+@media(max-width: 410px) {
+    #mapId {
+        width: 300px;
+        height: 430px;
+    }
+}
+
+.mapWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.delete-button {
+    background-color: #FF3C38;
+    color: white;
+    border: 0px;
+    border-radius: 5px;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
+    margin: auto;
+}
+
+.delete-button :hover {
+    cursor: pointer;
+}
+
+#rainbowPopup {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+#rainbowDetails {
+    display: flex;
+    align-content: flex-start;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 10px;
+}
+
+

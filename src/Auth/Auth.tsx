@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Register from './Register'
 import Login from "./Login";
+import './Auth.css'
 
 interface AuthProps {
     updateToken: (newToken: string) => void;
@@ -15,7 +16,7 @@ export default class Auth extends Component<AuthProps, AuthState> {
   constructor (props: AuthProps) {
       super(props);
       this.state = {
-          toggle: false
+          toggle: true
       }
   }
   
