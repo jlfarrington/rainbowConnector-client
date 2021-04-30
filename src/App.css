@@ -1,7 +1,9 @@
 @import 'antd/dist/antd.css';
 
 html, body {
-  height: 100%;
+  height: 100vh;
+  display: flex; 
+  flex-direction: column;
 }
 
 html {
@@ -21,10 +23,11 @@ html {
 .footer-section {
   color: white;
   background-color: #613DC1;
-  position: fixed;
+  /* position: fixed;
   left: 0;
-  bottom: 0;
+  bottom: 0; */
   width: 100%;
+  align-self: flex-end;
 }
 
 .content-section {

@@ -27,8 +27,7 @@ interface MapState {
   modalText: any;
   confirmLoading: boolean;
   userRainbow: string;
-  rainbowToUpdate: object;
-}
+  }
 
 interface Rainbow {
   id: number;
@@ -68,8 +67,7 @@ export default class Map extends Component<MapProps, MapState> {
       modalVisible: false,
       modalText: "content",
       confirmLoading: false,
-      userRainbow: "#",
-      rainbowToUpdate: {},
+      userRainbow: "#"
     };
   }
   componentDidMount() {
@@ -113,6 +111,7 @@ export default class Map extends Component<MapProps, MapState> {
           }})
          }) .then(response => console.log(response.json()))
     }
+    this.getRainbows(this.props.token);
   }
 
  
@@ -172,6 +171,7 @@ export default class Map extends Component<MapProps, MapState> {
 
       
     }
+    this.getRainbows(this.props.token);
   };
   
 
