@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Link, Route, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
 import "./App.css";
 import Auth from "./Auth/Auth";
 import Feed from "./RainbowViews/Feed";
 import Map from "./RainbowViews/Map";
 import BottomNav from "./Navigation/BottomNav";
 import { Layout } from "antd";
+
+import TopNav from './Navigation/TopNav'
 
 const { Header, Footer, Content } = Layout;
 
@@ -85,20 +87,22 @@ export default class App extends Component<AppProps, AppState> {
           <Header className="header-section">
             <h1 id="title">Rainbow Connector</h1>
           </Header>
+
+
           <Content className="content-section">
-            <div className="nav-main">
-             <Link to="/map">Map</Link> | |{" "}
-              <Link to="/feed">Feed</Link>
-            </div>
+            <TopNav />
 
             <div className="switch-routes">
               <Switch>
+
                 <Route exact path="/">
                   {this.state.loggedIn ? <Redirect to="/map" /> : <Redirect to="/auth" />}
                 </Route>
+                
                 <Route exact path="/auth">
                   {this.state.loggedIn ? <Redirect to="/map" />: <Auth updateToken={this.updateToken} />}
                 </Route>
+                
                 <Route exact path="/map">
                   <Map
                     token={this.state.sessionToken}
@@ -106,16 +110,21 @@ export default class App extends Component<AppProps, AppState> {
                     long={this.state.long}
                   />
                 </Route>
+                
                 <Route exact path="/feed">
                   <Feed token={this.state.sessionToken} />
                 </Route>
+              
               </Switch>
             </div>
+
           </Content>
 
           <Footer className="footer-section">
             <BottomNav />
           </Footer>
+
+
         </Layout>
       </Router>
     );
