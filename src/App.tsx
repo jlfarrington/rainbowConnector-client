@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Link, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Link, Route, Redirect } from "react-router-dom";
 import "./App.css";
 import Auth from "./Auth/Auth";
 import Feed from "./RainbowViews/Feed";
@@ -16,6 +16,7 @@ interface AppState {
   lat: number;
   long: number;
   rainbowData: Array<Rainbow> | null;
+  loggedIn: boolean;
 }
 
 interface Rainbow {
@@ -37,13 +38,14 @@ export default class App extends Component<AppProps, AppState> {
       lat: 35,
       long: -86,
       rainbowData: [],
+      loggedIn: false
     };
   }
 
   componentDidMount() {
     if (localStorage.getItem("token")) {
       let userToken = localStorage.getItem("token");
-      this.setState({ sessionToken: userToken });
+      this.setState({ sessionToken: userToken, loggedIn: true });
       this.getLocation();
     }
   }
@@ -67,13 +69,13 @@ export default class App extends Component<AppProps, AppState> {
 
   updateToken = (newToken: string) => {
     localStorage.setItem("token", newToken);
-    this.setState({ sessionToken: newToken });
+    this.setState({ sessionToken: newToken, loggedIn: true });
     console.log("token --->", newToken);
   };
 
   clearToken = () => {
     localStorage.clear();
-    this.setState({ sessionToken: "" });
+    this.setState({ sessionToken: "" , loggedIn: false});
   };
 
   render() {
@@ -85,14 +87,17 @@ export default class App extends Component<AppProps, AppState> {
           </Header>
           <Content className="content-section">
             <div className="nav-main">
-              <Link to="/auth">Auth</Link> | | <Link to="/map">Map</Link> | |{" "}
+             <Link to="/map">Map</Link> | |{" "}
               <Link to="/feed">Feed</Link>
             </div>
 
             <div className="switch-routes">
               <Switch>
+                <Route exact path="/">
+                  {this.state.loggedIn ? <Redirect to="/map" /> : <Redirect to="/auth" />}
+                </Route>
                 <Route exact path="/auth">
-                  <Auth updateToken={this.updateToken} />
+                  {this.state.loggedIn ? <Redirect to="/map" />: <Auth updateToken={this.updateToken} />}
                 </Route>
                 <Route exact path="/map">
                   <Map
