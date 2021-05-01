@@ -127,6 +127,7 @@ export default class Map extends Component<MapProps, MapState> {
 
       const { sig, ts } = await response.json();
       
+      
       const file = document.getElementById("file-input").files[0];
       const formData = new FormData();
 
@@ -186,7 +187,7 @@ export default class Map extends Component<MapProps, MapState> {
     console.log("modal triggered");
   };
 
-  handleOk = (): any => {
+  handleOk = (): null => {
     if (!this.state.confirmLoading) {
       this.setState({
         confirmLoading: true,
@@ -199,6 +200,7 @@ export default class Map extends Component<MapProps, MapState> {
         confirmLoading: false,
       });
     }, 2000);
+    return null
   };
 
   handleCancel = (): void => {

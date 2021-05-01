@@ -63,7 +63,7 @@ export default class Post extends Component<PostProps, PostState> {
                    <div>
                     <HeartTwoTone twoToneColor="#ff3c38" onClick={() => this.likeRainbow(this.props.rainbow)}/> {this.state.likesCount}
                     </div>
-                    <Comments key={this.props.key} rainbow={this.props.rainbow} token={this.props.token}/>
+                    <Comments rainbow={this.props.rainbow} token={this.props.token}/>
                  </Card>
             </div>
         )
