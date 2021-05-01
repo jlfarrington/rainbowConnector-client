@@ -8,6 +8,7 @@ import BottomNav from "./Navigation/BottomNav";
 import { Layout } from "antd";
 
 import TopNav from './Navigation/TopNav'
+import SideMenu from './Navigation/SideMenu'
 
 const { Header, Footer, Content } = Layout;
 
@@ -75,7 +76,7 @@ export default class App extends Component<AppProps, AppState> {
     console.log("token --->", newToken);
   };
 
-  clearToken = () => {
+  clearToken = (): void => {
     localStorage.clear();
     this.setState({ sessionToken: "" , loggedIn: false});
   };
@@ -86,33 +87,37 @@ export default class App extends Component<AppProps, AppState> {
         <Layout>
           <Header className="header-section">
             <h1 id="title">Rainbow Connector</h1>
+           
+            
           </Header>
 
 
           <Content className="content-section">
             <TopNav />
-
+            <SideMenu clearToken={this.clearToken}/>
             <div className="switch-routes">
               <Switch>
 
                 <Route exact path="/">
-                  {this.state.loggedIn ? <Redirect to="/map" /> : <Redirect to="/auth" />}
+                  {(this.state.sessionToken != '') ? <Redirect to="/map" /> : <Redirect to="/auth" />}
                 </Route>
                 
                 <Route exact path="/auth">
-                  {this.state.loggedIn ? <Redirect to="/map" />: <Auth updateToken={this.updateToken} />}
+                  {(this.state.sessionToken != '') ? <Redirect to="/map" />: <Auth updateToken={this.updateToken} />}
                 </Route>
                 
                 <Route exact path="/map">
-                  <Map
+                  {(this.state.sessionToken != '') ? <Map
                     token={this.state.sessionToken}
                     lat={this.state.lat}
                     long={this.state.long}
-                  />
+                  /> : <Redirect to="/" />}
                 </Route>
                 
                 <Route exact path="/feed">
-                  <Feed token={this.state.sessionToken} />
+                  {(this.state.sessionToken != '') ?
+                  <Feed token={this.state.sessionToken} /> :
+                  <Redirect to='/' />}
                 </Route>
               
               </Switch>
