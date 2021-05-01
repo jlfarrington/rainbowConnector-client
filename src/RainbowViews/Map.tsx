@@ -10,6 +10,7 @@ import customIcon from "../rainbow-icon.png";
 import $ from "jquery";
 
 import { Modal } from "antd";
+import { Rainbow } from '../Interfaces'
 
 import './Map.css'
 
@@ -29,16 +30,6 @@ interface MapState {
   userRainbow: string;
   }
 
-interface Rainbow {
-  id: number;
-  image: string;
-  likes: number;
-  lat: number;
-  long: number;
-  createdAt: string;
-  updatedAt: string;
-  userId: number;
-}
 
 const rainbowIcon = L.icon({
   iconUrl: customIcon,

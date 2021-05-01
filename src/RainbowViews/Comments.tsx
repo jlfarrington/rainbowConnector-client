@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 
 import { Comment } from 'antd'
 import { LikeOutlined } from '@ant-design/icons'
+import { Rainbow, RainbowComment } from '../Interfaces'
 
 import AddComment from './AddComment'
+
 
 interface CommentsProps {
     rainbow: Rainbow
@@ -12,25 +14,8 @@ interface CommentsProps {
 
 interface CommentsState {
     likesCount: number,
-    commentsData: Array<Comment> | null
+    commentsData: Array<RainbowComment> | null
 }
-
-interface Comment {
-    body: string;
-    likes: number;
-    id: number;
-} 
-
-interface Rainbow {
-    id: number;
-    image: string;
-    likes: number;
-    lat: number;
-    long: number;
-    createdAt: string;
-    updatedAt: string;
-    userId: number;
-  }
 
 
 
@@ -67,7 +52,7 @@ export default class Comments extends Component<CommentsProps, CommentsState> {
           this.getComments()
       }
 
-      likeComment = (comment: Comment) :void => {
+      likeComment = (comment: RainbowComment) :void => {
         let newLikes = comment.likes + 1
         if(this.props.token){
           fetch(`http://localhost:3000/comment/${comment.id}`, {

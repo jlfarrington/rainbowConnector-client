@@ -42,14 +42,15 @@ export default class SideMenu extends Component<SideMenuProps, SideMenuState> {
   render() {
     return (
         <Space wrap>
-            {/* ADMIN BUTTON */}
+            
+            {(localStorage.getItem('isAdmin') === 'true') ?
         <Dropdown.Button onClick={() => this.props.clearToken()}overlay={menu} placement="bottomCenter" icon={<SettingOutlined />}>
          Log Out
-        </Dropdown.Button>
-        {/* NON-ADMIN BUTTON */}
+        </Dropdown.Button> :
+       
         <Button onClick={() => this.props.clearToken()}>
          Log Out
-        </Button>
+        </Button>}
       </Space>
     );
   }

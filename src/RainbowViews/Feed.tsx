@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Rainbow } from '../Interfaces'
 import Post from './Post'
 import './Feed.css'
 
@@ -9,17 +10,6 @@ interface FeedProps {
 interface FeedState {
     rainbowData: Array<Rainbow> | null
 }
-
-interface Rainbow {
-    id: number;
-    image: string;
-    likes: number;
-    lat: number;
-    long: number;
-    createdAt: string;
-    updatedAt: string;
-    userId: number;
-  }
 
 export default class Feed extends Component<FeedProps, FeedState> {
     constructor(props: FeedProps) {

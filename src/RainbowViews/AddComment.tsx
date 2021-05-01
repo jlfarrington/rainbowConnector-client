@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 
 import { Comment, Form, Button, Input } from 'antd';
 
+import { Rainbow } from '../Interfaces'
+
 const { TextArea } = Input;
-
-
 
 
 
@@ -14,16 +14,6 @@ interface AddCommentProps {
     getComments: () => void;
 }
 
-interface Rainbow {
-    id: number;
-    image: string;
-    likes: number;
-    lat: number;
-    long: number;
-    createdAt: string;
-    updatedAt: string;
-    userId: number;
-  }
 
 interface AddCommentState {
     value: string;

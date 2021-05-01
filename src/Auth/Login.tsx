@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Form, Input, Button } from "antd";
 
 interface LoginProps {
-  updateToken: (newToken: string) => void;
+  updateToken: (newToken: string, newIsAdmin: boolean) => void;
 }
 
 interface LoginState {
@@ -35,7 +35,7 @@ export default class Login extends Component<LoginProps, LoginState> {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        this.props.updateToken(data.token);
+        this.props.updateToken(data.token, data.user.isAdmin);
       });
   }
 

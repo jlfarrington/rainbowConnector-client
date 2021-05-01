@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Card, Comment } from 'antd'
 import { HeartTwoTone } from '@ant-design/icons'
-
+import { Rainbow } from '../Interfaces'
 import Comments from './Comments'
 
 
@@ -15,17 +15,6 @@ interface PostState {
     rainbowData: Array<Rainbow> | null,
     likesCount: number
 }
-
-interface Rainbow {
-    id: number;
-    image: string;
-    likes: number;
-    lat: number;
-    long: number;
-    createdAt: string;
-    updatedAt: string;
-    userId: number;
-  }
 
 export default class Post extends Component<PostProps, PostState> {
     constructor(props: PostProps) {

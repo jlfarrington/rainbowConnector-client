@@ -10,6 +10,8 @@ import { Layout } from "antd";
 import TopNav from './Navigation/TopNav'
 import SideMenu from './Navigation/SideMenu'
 
+import { Rainbow } from './Interfaces'
+
 const { Header, Footer, Content } = Layout;
 
 interface AppProps {}
@@ -20,17 +22,7 @@ interface AppState {
   long: number;
   rainbowData: Array<Rainbow> | null;
   loggedIn: boolean;
-}
-
-interface Rainbow {
-  id: number;
-  image: string;
-  likes: number;
-  lat: number;
-  long: number;
-  createdAt: string;
-  updatedAt: string;
-  userId: number;
+  isAdmin: boolean;
 }
 
 export default class App extends Component<AppProps, AppState> {
@@ -41,7 +33,8 @@ export default class App extends Component<AppProps, AppState> {
       lat: 35,
       long: -86,
       rainbowData: [],
-      loggedIn: false
+      loggedIn: false,
+      isAdmin: false
     };
   }
 
@@ -50,6 +43,10 @@ export default class App extends Component<AppProps, AppState> {
       let userToken = localStorage.getItem("token");
       this.setState({ sessionToken: userToken, loggedIn: true });
       this.getLocation();
+    }
+    if (localStorage.getItem('isAdmin')) {
+      let userIsAdmin = localStorage.getItem('isAdmin');
+      this.setState({ isAdmin: true })
     }
   }
 
@@ -70,10 +67,12 @@ export default class App extends Component<AppProps, AppState> {
     );
   };
 
-  updateToken = (newToken: string) => {
+  updateToken = (newToken: string, newIsAdmin: boolean) => {
     localStorage.setItem("token", newToken);
-    this.setState({ sessionToken: newToken, loggedIn: true });
     console.log("token --->", newToken);
+    localStorage.setItem('isAdmin', newIsAdmin.toString())
+    this.setState({ sessionToken: newToken, isAdmin: newIsAdmin });
+    console.log('isAdmin ---> ', newIsAdmin)
   };
 
   clearToken = (): void => {
