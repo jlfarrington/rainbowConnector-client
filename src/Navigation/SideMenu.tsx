@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Menu, Dropdown, Button, message, Space, Tooltip } from 'antd';
 import { SettingOutlined } from "@ant-design/icons";
-
+import { BrowserRouter as Router, Switch, Route, Redirect, Link } from "react-router-dom";
 interface SideMenuState {
   collapsed: boolean;
 }
@@ -13,14 +13,16 @@ interface SideMenuProps {
 const menu = (
     <Menu>
     <Menu.Item key="0">
-      <a href="https://www.antgroup.com">Users</a>
+      <Link to='/users'>Users</Link>
     </Menu.Item>
     <Menu.Divider />
     <Menu.Item key="1">
-      <a href="https://www.aliyun.com">Rainbows</a>
+    <Link to='/rainbows'>Rainbows</Link>
     </Menu.Item>
     <Menu.Divider />
-    <Menu.Item key="3">Comments</Menu.Item>
+    <Menu.Item key="2">
+    <Link to='/comments'>Comments</Link>
+    </Menu.Item>
   </Menu>
 );
 

@@ -4,6 +4,9 @@ import "./App.css";
 import Auth from "./Auth/Auth";
 import Feed from "./RainbowViews/Feed";
 import Map from "./RainbowViews/Map";
+import UsersAdmin from './Admin/UsersAdmin'
+import RainbowsAdmin from './Admin/RainbowsAdmin'
+import CommentsAdmin from './Admin/CommentsAdmin'
 import BottomNav from "./Navigation/BottomNav";
 import { Layout } from "antd";
 
@@ -117,6 +120,18 @@ export default class App extends Component<AppProps, AppState> {
                   {(this.state.sessionToken != '') ?
                   <Feed token={this.state.sessionToken} /> :
                   <Redirect to='/' />}
+                </Route>
+
+                <Route exact path='/users'>
+                  <UsersAdmin />
+                </Route>
+
+                <Route exact path='/rainbows'>
+                  <RainbowsAdmin />
+                </Route>
+
+                <Route exact path='/comments'>
+                  <CommentsAdmin />
                 </Route>
               
               </Switch>
