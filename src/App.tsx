@@ -123,15 +123,15 @@ export default class App extends Component<AppProps, AppState> {
                 </Route>
 
                 <Route exact path='/users'>
-                  <UsersAdmin />
+                  <UsersAdmin token={this.state.sessionToken} />
                 </Route>
 
                 <Route exact path='/rainbows'>
-                  <RainbowsAdmin />
+                  <RainbowsAdmin token={this.state.sessionToken} />
                 </Route>
 
                 <Route exact path='/comments'>
-                  <CommentsAdmin />
+                  <CommentsAdmin token={this.state.sessionToken}/>
                 </Route>
               
               </Switch>

@@ -13,4 +13,14 @@ export interface Rainbow {
     body: string;
     likes: number;
     id: number;
+    rainbowId: number;
 } 
+
+export interface User {
+  firstName: string,
+  lastName: string,
+  email: string,
+  password: string,
+  isAdmin: boolean,
+  id: number,
+}
