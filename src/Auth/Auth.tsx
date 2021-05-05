@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Register from './Register'
 import Login from "./Login";
+import RainbowIcon from '../rainbow-icon.png'
 import './Auth.css'
 
 interface AuthProps {
@@ -23,6 +24,8 @@ export default class Auth extends Component<AuthProps, AuthState> {
     render() {
     return (
       <div className="card-login" id="cardls">
+        <img src={RainbowIcon} id="auth-hero-img"/>
+
         {(this.state.toggle) ? (
           <Login updateToken={this.props.updateToken} />
         ) : (

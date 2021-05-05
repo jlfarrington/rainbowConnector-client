@@ -106,7 +106,7 @@ export default class Register extends Component <RegisterProps, RegisterState> {
             <Button
               type="primary"
               htmlType="submit"
-              className="register-form-button"
+              className="auth-form-button"
             >
               Register
             </Button>

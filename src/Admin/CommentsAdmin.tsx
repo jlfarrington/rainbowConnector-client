@@ -82,7 +82,7 @@ export default class CommentsAdmin extends Component<CommentsAdminProps, Comment
     render() {
         return(
             <>
-            <h1>Comments</h1>
+            <h1 className="admin-title">Comments</h1>
             <div className="admin-table-wrapper">
             <table className="admin-table">
                 <thead>

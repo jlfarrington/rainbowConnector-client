@@ -86,17 +86,20 @@ export default class App extends Component<AppProps, AppState> {
   render() {
     return (
       <Router>
-        <Layout>
+        <Layout className="antd-layout">
           <Header className="header-section">
+            
             <h1 id="title">Rainbow Connector</h1>
-           
+
             
           </Header>
 
 
           <Content className="content-section">
-            <TopNav />
-            <SideMenu clearToken={this.clearToken}/>
+          {(this.state.sessionToken != '') ? <SideMenu clearToken={this.clearToken}/> : null}
+
+          {(this.state.sessionToken != '') ? <TopNav /> : null}
+           
             <div className="switch-routes">
               <Switch>
 
@@ -123,23 +126,34 @@ export default class App extends Component<AppProps, AppState> {
                 </Route>
 
                 <Route exact path='/users'>
+                  {(this.state.sessionToken != '') ? 
                   <UsersAdmin token={this.state.sessionToken} />
+                  :
+                  <Redirect to='/' />}
                 </Route>
 
                 <Route exact path='/rainbows'>
+                {(this.state.sessionToken != '') ? 
                   <RainbowsAdmin token={this.state.sessionToken} />
+                  :
+                  <Redirect to='/' />}
                 </Route>
 
                 <Route exact path='/comments'>
-                  <CommentsAdmin token={this.state.sessionToken}/>
+                {(this.state.sessionToken != '') ? 
+                  <CommentsAdmin token={this.state.sessionToken} />
+                  :
+                  <Redirect to='/' />}
                 </Route>
               
               </Switch>
             </div>
 
           </Content>
+          
 
           <Footer className="footer-section">
+          
             <BottomNav />
           </Footer>
 

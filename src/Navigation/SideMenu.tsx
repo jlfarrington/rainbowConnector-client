@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Menu, Dropdown, Button, message, Space, Tooltip } from 'antd';
 import { SettingOutlined } from "@ant-design/icons";
 import { BrowserRouter as Router, Switch, Route, Redirect, Link } from "react-router-dom";
+
+import './Navigation.css'
+
 interface SideMenuState {
   collapsed: boolean;
 }
@@ -43,7 +46,7 @@ export default class SideMenu extends Component<SideMenuProps, SideMenuState> {
 
   render() {
     return (
-        <Space wrap>
+        <Space wrap className="logout-menu">
             
             {(localStorage.getItem('isAdmin') === 'true') ?
         <Dropdown.Button onClick={() => this.props.clearToken()}overlay={menu} placement="bottomCenter" icon={<SettingOutlined />}>

@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import './BottomNav.css'
+import './Navigation.css'
 
 export default class BottomNav extends Component {
     render() {
         return(
             <div className="footer">
-            <p>Someday we'll find it - the rainbow connection - the lovers, the dreamers, and me.</p>
+            <p>- Someday we'll find it - the rainbow connection - the lovers, the dreamers, and me. -</p>
+            <p>© 2021, Jennifer Farrington</p>
             </div>
         )
     }

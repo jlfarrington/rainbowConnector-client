@@ -1,5 +1,56 @@
 .rainbow-feed-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
+
+.card-wrapper {
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+
+.add-comment-btn {
+    background-color: #e7bb41;
+    color: white;
+    border-radius: 4px;
+}
+
+.add-comment-btn:hover {
+    color: black;
+}
+
+.rainbow-image {
+    width: 500px;
+}
+
+
+
+@media (max-width: 600px) {
+    .rainbow-image{
+      width: 400px;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .rainbow-image{
+      width: 350px;
+    }
+  }
+
+  @media (max-width: 422px) {
+    .rainbow-image{
+      width: 300px;
+    }
+  }
+
+  @media (max-width: 376px) {
+    .rainbow-image{
+      width: 250px;
+    }
+  }
+
+  @media (max-width: 320px) {
+    .rainbow-image{
+      width: 200px;
+    }
+  }

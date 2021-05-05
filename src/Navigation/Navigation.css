@@ -1,0 +1,24 @@
+.footer {
+    text-align: center;
+    height: 55px;
+}
+
+.nav-main {
+    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.logout-menu {
+    z-index: 10!important;
+    position: fixed;
+    right: 10px;
+    top: 15px;
+}
+
+@media(max-width: 518px) {
+   .logout-menu {
+    z-index: 10!important;
+    width: 75px;
+    }
+}

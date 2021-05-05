@@ -1,7 +1,6 @@
 @import 'antd/dist/antd.css';
 
 html, body {
-  height: 100vh;
   display: flex; 
   flex-direction: column;
 }
@@ -23,9 +22,6 @@ html {
 .footer-section {
   color: white;
   background-color: #613DC1;
-  /* position: fixed;
-  left: 0;
-  bottom: 0; */
   width: 100%;
   align-self: flex-end;
 }
@@ -41,7 +37,10 @@ body {
   background-color: #F0F7F4;
 }
 
-.register-form-button {
+.auth-form-button {
   background-color: #00A7E1;
 }
 
+.antd-layout {
+  height: 100vh;
+}

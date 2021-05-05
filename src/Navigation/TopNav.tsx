@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Switch, Route, Redirect, Link } from "react-router-dom";
-
+import './Navigation.css'
 
 export default class TopNav extends Component {
     render() {

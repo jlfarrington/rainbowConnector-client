@@ -270,7 +270,7 @@ export default class Map extends Component<MapProps, MapState> {
                 })
 
                 let popupContent = `<div id="rainbowPopup"><img src=${rainbow.image} width="250px" key=${index} />
-                <div id="rainbowDetails"><button class="delete-button" id="likeBtn">Like</button> Likes: ${rainbow.likes}</div> </div>`
+                <div id="rainbowDetails"><button class="delete-button" id="likeBtn">Like</button> <div id="likes">Likes: ${rainbow.likes}</div></div> </div>`
                 
                 const theRainbow = rainbow;
 

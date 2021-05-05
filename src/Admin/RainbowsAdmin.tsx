@@ -67,10 +67,10 @@ export default class RainbowsAdmin extends Component<RainbowsAdminProps, Rainbow
               return this.state.rainbowData.map((rainbow, index) => {
                   return(
                   <tr key={index}>
-                      <td><img src={rainbow.image} width='200px' /></td>
+                      <td><img src={rainbow.image} className="rainbow-table-img" /></td>
                       <td>{rainbow.likes}</td>
-                      <td>{rainbow.lat}</td>
-                      <td>{rainbow.long}</td>
+                      <td>{Math.round(rainbow.lat)}</td>
+                      <td>{Math.round(rainbow.long)}</td>
                       <td> <Button onClick={() => this.deleteRainbow(rainbow)}>Delete Rainbow</Button></td>
                   </tr>
                   )
@@ -83,15 +83,15 @@ export default class RainbowsAdmin extends Component<RainbowsAdminProps, Rainbow
     render() {
         return(
             <>
-            <h1>Rainbows</h1>
+            <h1 className="admin-title">Rainbows</h1>
             <div className="admin-table-wrapper">
             <table className="admin-table">
                 <thead>
                     <tr>
                         <th>Rainbow Image</th>
                         <th>Number of Likes</th>
-                        <th>Latitude</th>
-                        <th>Longitude</th>
+                        <th>Latitude (rounded)</th>
+                        <th>Longitude (rounded)</th>
                         <th>Actions</th>
                     </tr>
                 </thead>

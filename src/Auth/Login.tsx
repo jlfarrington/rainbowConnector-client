@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Form, Input, Button } from "antd";
 
+import '../App.css'
+
 interface LoginProps {
   updateToken: (newToken: string, newIsAdmin: boolean) => void;
 }
@@ -78,7 +80,7 @@ export default class Login extends Component<LoginProps, LoginState> {
             <Button
               type="primary"
               htmlType="submit"
-              className="login-form-button"
+              className="auth-form-button"
             >
               Log in
             </Button>

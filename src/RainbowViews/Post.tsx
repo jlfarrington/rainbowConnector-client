@@ -4,6 +4,7 @@ import { HeartTwoTone } from '@ant-design/icons'
 import { Rainbow } from '../Interfaces'
 import Comments from './Comments'
 
+import './Feed.css'
 
 interface PostProps {
     rainbow: Rainbow
@@ -46,9 +47,9 @@ export default class Post extends Component<PostProps, PostState> {
 
     render() {
         return(
-            <div>
+            <div className="card-wrapper">
                 <Card className="rainbow-card">
-                 <img src={this.props.rainbow.image} width="500px"/>
+                 <img src={this.props.rainbow.image} className="rainbow-image"/>
                    <div>
                     <HeartTwoTone twoToneColor="#ff3c38" onClick={() => this.likeRainbow(this.props.rainbow)}/> {this.state.likesCount}
                     </div>

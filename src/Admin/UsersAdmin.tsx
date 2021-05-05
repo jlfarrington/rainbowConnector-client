@@ -98,7 +98,7 @@ export default class UsersAdmin extends Component<UsersAdminProps, UsersAdminSta
     render() {
         return(
             <>
-            <h1>Users</h1>
+            <h1 className="admin-title">Users</h1>
             <div className="admin-table-wrapper">
             <table className="admin-table">
                 <thead>
