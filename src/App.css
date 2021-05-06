@@ -3,11 +3,13 @@
 html, body {
   display: flex; 
   flex-direction: column;
+  font-family: 'Mandali', sans-serif;
 }
 
 html {
   scroll-behavior: smooth;
   overflow-x: hidden;
+  font-family: 'Poppins', sans-serif;
 }
 
 .header-section {
@@ -16,7 +18,11 @@ html {
 
 #title {
   color: white;
-  text-align: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: 'Dancing Script', cursive;
+  font-size: 30px;
 }
 
 .footer-section {

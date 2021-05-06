@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom";
-import "./App.css";
+import "./App.css"
 import Auth from "./Auth/Auth";
 import Feed from "./RainbowViews/Feed";
 import Map from "./RainbowViews/Map";
@@ -11,7 +11,7 @@ import BottomNav from "./Navigation/BottomNav";
 import { Layout } from "antd";
 
 import TopNav from './Navigation/TopNav'
-import SideMenu from './Navigation/SideMenu'
+import Navbar from './Navigation/Navbar'
 
 import { Rainbow } from './Interfaces'
 
@@ -88,15 +88,14 @@ export default class App extends Component<AppProps, AppState> {
       <Router>
         <Layout className="antd-layout">
           <Header className="header-section">
-            
-            <h1 id="title">Rainbow Connector</h1>
-
+          
+          <Navbar clearToken={this.clearToken}/>
             
           </Header>
 
 
           <Content className="content-section">
-          {(this.state.sessionToken != '') ? <SideMenu clearToken={this.clearToken}/> : null}
+          
 
           {(this.state.sessionToken != '') ? <TopNav /> : null}
            

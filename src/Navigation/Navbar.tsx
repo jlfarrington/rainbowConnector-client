@@ -5,16 +5,16 @@ import { BrowserRouter as Router, Switch, Route, Redirect, Link } from "react-ro
 
 import './Navigation.css'
 
-interface SideMenuState {
+interface NavbarState {
   collapsed: boolean;
 }
 
-interface SideMenuProps {
+interface NavbarProps {
     clearToken: () => void;
 }
 
 const menu = (
-    <Menu>
+    <Menu className="adminMenu">
     <Menu.Item key="0">
       <Link to='/users'>Users</Link>
     </Menu.Item>
@@ -29,34 +29,31 @@ const menu = (
   </Menu>
 );
 
-export default class SideMenu extends Component<SideMenuProps, SideMenuState> {
-  constructor(props: SideMenuProps) {
+export default class Navbar extends Component<NavbarProps, NavbarState> {
+  constructor(props: NavbarProps) {
     super(props);
     this.state = {
       collapsed: true,
     };
   }
 
-  toggleCollapsed = (): void => {
-    let newToggle = !this.state.collapsed;
-    this.setState({
-      collapsed: newToggle,
-    });
-  };
+  
 
   render() {
     return (
-        <Space wrap className="logout-menu">
-            
-            {(localStorage.getItem('isAdmin') === 'true') ?
-        <Dropdown.Button onClick={() => this.props.clearToken()}overlay={menu} placement="bottomCenter" icon={<SettingOutlined />}>
+      <>
+      <h1 id="title">Rainbow Connector
+      {(localStorage.getItem('isAdmin') === 'true') && (localStorage.getItem('token') != '') ?
+        <Dropdown.Button className="logout-menu" onClick={() => this.props.clearToken()}overlay={menu} placement="bottomCenter" icon={<SettingOutlined />}>
          Log Out
-        </Dropdown.Button> :
+        </Dropdown.Button> : (localStorage.getItem('token') != '') && (localStorage.getItem('isAdmin') == 'false') ?
+               <Button className="logout-menu" onClick={() => this.props.clearToken()}>
+         Log Out
+        </Button> : null }
+      </h1>
        
-        <Button onClick={() => this.props.clearToken()}>
-         Log Out
-        </Button>}
-      </Space>
+        
+      </>
     );
   }
 }

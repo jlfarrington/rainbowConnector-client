@@ -6,8 +6,11 @@ export default class TopNav extends Component {
     render() {
         return (
             <div className="nav-main">
-            <Link to="/map">Map</Link> | |{" "}
-             <Link to="/feed">Feed</Link>
+                <ul>
+            <li><Link to="/map" className="underline">Rainbow Map</Link> </li>
+            <li>| </li>
+             <li><Link to="/feed" className="underline">Rainbow Feed</Link></li>
+             </ul>
            </div>
         )
     }
