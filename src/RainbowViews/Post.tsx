@@ -3,7 +3,7 @@ import { Card, Comment } from 'antd'
 import { HeartTwoTone } from '@ant-design/icons'
 import { Rainbow } from '../Interfaces'
 import Comments from './Comments'
-
+import APIURL from '../helpers/environment'
 import './Feed.css'
 
 interface PostProps {
@@ -29,7 +29,7 @@ export default class Post extends Component<PostProps, PostState> {
       likeRainbow = (rainbow: Rainbow): void => {
         let newLikes = rainbow.likes + 1
         if (this.props.token) {
-          fetch(`http://localhost:3000/rainbow/${rainbow.id}`, {
+          fetch(`${APIURL}/rainbow/${rainbow.id}`, {
             method: "PUT",
             headers: {"Content-Type": "application/json",'Authorization': this.props.token}, body: JSON.stringify({
                 rainbow: {

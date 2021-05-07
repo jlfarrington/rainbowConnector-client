@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button } from 'antd'
 import { Rainbow } from '../Interfaces'
 import './Admin.css'
+import APIURL from '../helpers/environment'
 
 interface RainbowsAdminProps {
     token: string | null
@@ -29,7 +30,7 @@ export default class RainbowsAdmin extends Component<RainbowsAdminProps, Rainbow
 
     getRainbows = (token: string | null): void => {
         if (token) {
-          fetch("http://localhost:3000/rainbow/", {
+          fetch(`${APIURL}/rainbow/`, {
             method: "GET",
             headers: new Headers({
               "Content-Type": "application/json",
@@ -48,7 +49,7 @@ export default class RainbowsAdmin extends Component<RainbowsAdminProps, Rainbow
 
       deleteRainbow = (rainbow: Rainbow): void => {
           if (this.props.token) {
-              fetch(`http://localhost:3000/rainbow/${rainbow.id}`, {
+              fetch(`${APIURL}/rainbow/${rainbow.id}`, {
                   method: "DELETE",
                   headers: new Headers({
                       "Content-Type": "application/json",

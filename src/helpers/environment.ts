@@ -1,4 +1,4 @@
-let APIURL = ''
+let APIURL = '';
 
 switch(window.location.hostname) {
     case 'localhost':

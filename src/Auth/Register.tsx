@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Input, Button } from "antd";
+import APIURL from '../helpers/environment'
 
 interface RegisterProps {
     updateToken: (newToken: string, newIsAdmin: boolean) => void
@@ -24,7 +25,7 @@ export default class Register extends Component <RegisterProps, RegisterState> {
     }
 
     handleSubmit(event: React.ChangeEvent<HTMLFormElement>): void {
-       fetch('http://localhost:3000/user/register', {
+       fetch(`${APIURL}/user/register`, {
            method: 'POST',
            body: JSON.stringify({user: {
                firstName: this.state.firstName,

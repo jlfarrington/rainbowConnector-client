@@ -3,8 +3,10 @@ import React, { Component } from 'react';
 import { Comment, Form, Button, Input } from 'antd';
 
 import { Rainbow } from '../Interfaces'
+import APIURL from '../helpers/environment'
 
 const { TextArea } = Input;
+
 
 
 
@@ -56,7 +58,7 @@ export default class AddComment extends Component<AddCommentProps, AddCommentSta
             
 
           if(this.props.token){
-            fetch(`http://localhost:3000/comment/post/${this.props.rainbow.id}`, {
+            fetch(`${APIURL}/comment/post/${this.props.rainbow.id}`, {
                 method: "POST",
                 headers: new Headers({
                   "Content-Type": "application/json",

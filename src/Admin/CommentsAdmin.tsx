@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Button } from 'antd'
 import { RainbowComment } from '../Interfaces'
 import './Admin.css'
-import APIURL from '../helpers/environment'
+import APIURL from "../helpers/environment"
 
 interface CommentsAdminProps {
     token: string | null
@@ -49,7 +49,7 @@ export default class CommentsAdmin extends Component<CommentsAdminProps, Comment
 
       deleteComment = (rainbowComment: RainbowComment): void => {
           if (this.props.token) {
-              fetch(`http://localhost:3000/comment/${rainbowComment.id}`, {
+              fetch(`${APIURL}/comment/${rainbowComment.id}`, {
                   method: "DELETE",
                   headers: new Headers({
                       "Content-Type": "application/json",

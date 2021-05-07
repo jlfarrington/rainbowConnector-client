@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import APIURL from '../helpers/environment'
 import {
   MapContainer,
   TileLayer,
@@ -70,7 +71,7 @@ export default class Map extends Component<MapProps, MapState> {
   getRainbows = (token: string | null): void => {
     if (token) {
      
-      fetch("http://localhost:3000/rainbow/", {
+      fetch(`${APIURL}/rainbow/`, {
         method: "GET",
         headers: new Headers({
           "Content-Type": "application/json",
@@ -91,7 +92,7 @@ export default class Map extends Component<MapProps, MapState> {
   likeRainbow = (rainbow: Rainbow): void => {
     if (this.props.token) {
       let newLikes = rainbow.likes + 1
-      fetch(`http://localhost:3000/rainbow/${rainbow.id}`, {
+      fetch(`${APIURL}/rainbow/${rainbow.id}`, {
         method: "PUT",
         headers: {"Content-Type": "application/json",'Authorization': this.props.token}, body: JSON.stringify({
             rainbow: {
@@ -110,7 +111,7 @@ export default class Map extends Component<MapProps, MapState> {
     if (this.state.modalVisible) {
     e.preventDefault();
     if (this.props.token) {
-      const response = await fetch("http://localhost:3000/rainbow/cloudsign", {
+      const response = await fetch(`${APIURL}/rainbow/cloudsign`, {
         method: "GET",
         headers: {
           Authorization: this.props.token,
@@ -144,7 +145,7 @@ export default class Map extends Component<MapProps, MapState> {
         });
         console.log(this.state.userRainbow);
         const final = await (
-          await fetch("http://localhost:3000/rainbow/report", {
+          await fetch(`${APIURL}/rainbow/report`, {
             method: "POST",
             headers: {
               Authorization: this.props.token,

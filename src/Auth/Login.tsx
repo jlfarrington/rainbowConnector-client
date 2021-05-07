@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Form, Input, Button } from "antd";
-
+import APIURL from '../helpers/environment'
 import '../App.css'
 
 interface LoginProps {
@@ -22,7 +22,7 @@ export default class Login extends Component<LoginProps, LoginState> {
   }
 
   handleSubmit(event: React.ChangeEvent<HTMLFormElement>): void {
-    fetch("http://localhost:3000/user/login", {
+    fetch(`${APIURL}/user/login`, {
       method: "POST",
       body: JSON.stringify({
         user: {

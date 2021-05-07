@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Rainbow } from '../Interfaces'
 import Post from './Post'
 import './Feed.css'
+import APIURL from '../helpers/environment'
 
 interface FeedProps {
     token: string | null
@@ -28,7 +29,7 @@ export default class Feed extends Component<FeedProps, FeedState> {
       getRainbows = (token: string | null): void => {
         if (token) {
          
-          fetch("http://localhost:3000/rainbow/", {
+          fetch(`${APIURL}/rainbow/`, {
             method: "GET",
             headers: new Headers({
               "Content-Type": "application/json",

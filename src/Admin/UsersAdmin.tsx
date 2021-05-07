@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button } from 'antd'
 import { User } from '../Interfaces'
 import './Admin.css'
+import APIURL from '../helpers/environment'
 
 interface UsersAdminProps {
     token: string | null
@@ -30,7 +31,7 @@ export default class UsersAdmin extends Component<UsersAdminProps, UsersAdminSta
 
     getUsers = (token: string | null): void => {
         if (token) {
-          fetch("http://localhost:3000/user/userinfo", {
+          fetch(`${APIURL}/user/userinfo`, {
             method: "GET",
             headers: new Headers({
               "Content-Type": "application/json",
@@ -49,7 +50,7 @@ export default class UsersAdmin extends Component<UsersAdminProps, UsersAdminSta
 
       deleteUser = (user: User): void => {
           if (this.props.token) {
-              fetch(`http://localhost:3000/user/delete/${user.id}`, {
+              fetch(`${APIURL}/user/delete/${user.id}`, {
                   method: "DELETE",
                   headers: new Headers({
                       "Content-Type": "application/json",
@@ -63,7 +64,7 @@ export default class UsersAdmin extends Component<UsersAdminProps, UsersAdminSta
 
       promoteAdmin = (user: User): void => {
           if (this.props.token) {
-              fetch(`http://localhost:3000/user/update/${user.id}`, {
+              fetch(`${APIURL}/user/update/${user.id}`, {
                   method: "PUT",
                   headers: new Headers({
                       "Content-Type": "application/json",

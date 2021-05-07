@@ -5,7 +5,7 @@ import { LikeOutlined } from '@ant-design/icons'
 import { Rainbow, RainbowComment } from '../Interfaces'
 
 import AddComment from './AddComment'
-
+import APIURL from '../helpers/environment'
 
 interface CommentsProps {
     rainbow: Rainbow
@@ -31,7 +31,7 @@ export default class Comments extends Component<CommentsProps, CommentsState> {
       getComments = (): void => {
         if (this.props.token) {
          
-          fetch(`http://localhost:3000/comment/${this.props.rainbow.id}`, {
+          fetch(`${APIURL}/comment/${this.props.rainbow.id}`, {
             method: "GET",
             headers: new Headers({
               "Content-Type": "application/json",
@@ -55,7 +55,7 @@ export default class Comments extends Component<CommentsProps, CommentsState> {
       likeComment = (comment: RainbowComment) :void => {
         let newLikes = comment.likes + 1
         if(this.props.token){
-          fetch(`http://localhost:3000/comment/${comment.id}`, {
+          fetch(`${APIURL}/comment/${comment.id}`, {
               method: "PUT",
               headers: new Headers({
                 "Content-Type": "application/json",
