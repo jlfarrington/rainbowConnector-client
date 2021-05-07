@@ -21,25 +21,44 @@ export default class Login extends Component<LoginProps, LoginState> {
     };
   }
 
+  // handleSubmit(event: React.ChangeEvent<HTMLFormElement>): void {
+  //   fetch(`${APIURL}user/login`, {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       user: {
+  //         email: this.state.email,
+  //         password: this.state.password,
+  //       },
+  //     }),
+  //     headers: new Headers({
+  //       "Content-Type": "application/json",
+  //     }),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       console.log(data);
+  //       this.props.updateToken(data.token, data.user.isAdmin);
+  //     });
+  // }
+
   handleSubmit(event: React.ChangeEvent<HTMLFormElement>): void {
-    fetch(`${APIURL}user/login`, {
-      method: "POST",
-      body: JSON.stringify({
-        user: {
-          email: this.state.email,
-          password: this.state.password,
-        },
-      }),
-      headers: new Headers({
+    const body = {
+      user: {
+        email: this.state.email,
+        password: this.state.password,
+      }
+    }
+    fetch(`${APIURL}/user/login`, {
+      method: "POST", 
+      headers: {
         "Content-Type": "application/json",
-      }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        this.props.updateToken(data.token, data.user.isAdmin);
-      });
+      },
+      body: JSON.stringify(body)
+    }) .then((res) => res.json())
+    .then((data) => this.props.updateToken(data.token, data.user.isAdmin))
+    .catch((err) => console.log(err));
   }
+
 
   render() {
     return (
