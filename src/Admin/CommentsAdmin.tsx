@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Button } from 'antd'
 import { RainbowComment } from '../Interfaces'
 import './Admin.css'
+import APIURL from '../helpers/environment'
 
 interface CommentsAdminProps {
     token: string | null
@@ -29,7 +30,7 @@ export default class CommentsAdmin extends Component<CommentsAdminProps, Comment
 
     getComments = (token: string | null): void => {
         if (token) {
-          fetch("http://localhost:3000/comment/all", {
+          fetch(`${APIURL}/comment/all`, {
             method: "GET",
             headers: new Headers({
               "Content-Type": "application/json",
