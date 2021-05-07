@@ -293,8 +293,7 @@ export default class Map extends Component<MapProps, MapState> {
 
 
          </MapConsumer>
-         
-         
+        
          
          
           
