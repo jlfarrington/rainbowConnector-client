@@ -107,6 +107,7 @@ export default class Map extends Component<MapProps, MapState> {
 
  
   reportRainbow = async (e: any): Promise<any> => {
+    if (this.state.modalVisible) {
     e.preventDefault();
     if (this.props.token) {
       const response = await fetch("http://localhost:3000/rainbow/cloudsign", {
@@ -118,8 +119,8 @@ export default class Map extends Component<MapProps, MapState> {
 
       const { sig, ts } = await response.json();
       
-      
-      const file = document.getElementById("file-input").files[0];
+      const fileInput = document.getElementById("file-input") as HTMLFormElement
+      const file = fileInput!.files[0];
       const formData = new FormData();
 
       formData.append("file", file);
@@ -127,7 +128,7 @@ export default class Map extends Component<MapProps, MapState> {
       formData.append("api_key", "118619554811256");
       formData.append("signature", sig);
       formData.append("timestamp", ts);
-
+      
       const results = await (
         await fetch(CLOUD_URL, {
           method: "POST",
@@ -136,7 +137,7 @@ export default class Map extends Component<MapProps, MapState> {
       ).json();
 
       console.log(results);
-
+      
       if (results) {
         this.setState({
           userRainbow: results.secure_url,
@@ -164,6 +165,7 @@ export default class Map extends Component<MapProps, MapState> {
       
     }
     this.getRainbows(this.props.token);
+  }
   };
   
 

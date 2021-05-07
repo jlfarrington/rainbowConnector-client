@@ -5,7 +5,7 @@ import RainbowIcon from '../rainbow-icon.png'
 import './Auth.css'
 
 interface AuthProps {
-    updateToken: (newToken: string) => void;
+    updateToken: (newToken: string, newIsAdmin: boolean) => void;
 }
 
 interface AuthState {
