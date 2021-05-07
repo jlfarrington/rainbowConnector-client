@@ -22,7 +22,7 @@ export default class Login extends Component<LoginProps, LoginState> {
   }
 
   handleSubmit(event: React.ChangeEvent<HTMLFormElement>): void {
-    fetch(`${APIURL}user/login`, {
+    fetch(`${APIURL}/user/login`, {
       method: "POST",
       body: JSON.stringify({
         user: {
@@ -46,7 +46,7 @@ export default class Login extends Component<LoginProps, LoginState> {
   render() {
     return (
       <div className="login">
-        <h1>Log in*</h1>
+        <h1>Log In</h1>
         <Form
           name="normal_long"
           className="login-form"
