@@ -6,7 +6,7 @@ switch(window.location.hostname) {
         APIURL = 'http://localhost:3000'
         break
     case 'https://rainbowconnector.herokuapp.com/auth':
-        APIURL = `https://rainbow-connector.herokuapp.com`
+        APIURL = 'https://rainbow-connector.herokuapp.com'
 }
 
 export default APIURL;
