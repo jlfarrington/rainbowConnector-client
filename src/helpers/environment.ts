@@ -1,4 +1,4 @@
-let APIURL = '';
+let APIURL = 'http://rainbow-connector.herokuapp.com';
 
 switch(window.location.hostname) {
     case 'localhost':
