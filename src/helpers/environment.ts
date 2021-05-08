@@ -7,6 +7,16 @@ switch(window.location.hostname) {
         break
     case 'https://rainbowconnector.herokuapp.com/auth':
         APIURL = 'https://rainbow-connector.herokuapp.com'
+        break
+    case 'https://rainbowconnector.herokuapp.com/':
+        APIURL = 'https://rainbow-connector.herokuapp.com'
+        break
+    case 'http://rainbowconnector.herokuapp.com/':
+        APIURL = 'http://rainbow-connector.herokuapp.com'
+        break
+    case 'http://rainbowconnector.herokuapp.com/auth':
+        APIURL = 'http://rainbow-connector.herokuapp.com'
+        break
+    
 }
-
 export default APIURL;
