@@ -11,10 +11,10 @@ switch(window.location.hostname) {
     case 'https://rainbowconnector-ui.onrender.com/':
         APIURL = 'https://rainbowconnector-api.onrender.com'
         break
-    case 'https://rainbowconnector-ui.onrender.com/':
+    case 'http://rainbowconnector-ui.onrender.com/':
         APIURL = 'http://rainbowconnector-api.onrender.com'
         break
-    case 'https://rainbowconnector-ui.onrender.com/auth':
+    case 'http://rainbowconnector-ui.onrender.com/auth':
         APIURL = 'http://rainbowconnector-api.onrender.com'
         break
     
