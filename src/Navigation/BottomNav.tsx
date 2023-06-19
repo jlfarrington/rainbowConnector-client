@@ -6,7 +6,7 @@ export default class BottomNav extends Component {
         return(
             <div className="footer">
             <p>- Someday we'll find it - the rainbow connection - the lovers, the dreamers, and me. -</p>
-            <p>© 2021, Jennifer Farrington</p>
+            <p>© 2023, Jennifer Farrington</p>
             </div>
         )
     }
