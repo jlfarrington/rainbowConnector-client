@@ -125,7 +125,7 @@ export default class Map extends Component<MapProps, MapState> {
       const formData = new FormData();
 
       formData.append("file", file);
-      formData.append("upload_preset", "nynrj6up");
+      formData.append("upload_preset", "euqfw3n3");
       formData.append("api_key", "118619554811256");
       formData.append("signature", sig);
       formData.append("timestamp", ts);
