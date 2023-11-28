@@ -47,7 +47,7 @@ const formItemLayout = {
 };
 
 const CLOUD_URL =
-  "https://api.cloudinary.com/v1_1/rainbowconnector/image/upload";
+  `https://api.cloudinary.com/v1_1/rainbowconnector/image/upload?api_key=118619554811256`;
 
 export default class Map extends Component<MapProps, MapState> {
   constructor(props: MapProps) {
@@ -125,13 +125,10 @@ export default class Map extends Component<MapProps, MapState> {
       const formData = new FormData();
 
       formData.append("file", file);
-      formData.append("upload_preset", "euqfw3n3");
-      formData.append("api_key", "118619554811256");
-      formData.append("signature", sig);
-      formData.append("timestamp", ts);
+     // formData.append("upload_preset", "euqfw3n3");
       
       const results = await (
-        await fetch(CLOUD_URL, {
+        await fetch(`${CLOUD_URL}&timestamp=${ts}&signature=${sig}`, {
           method: "POST",
           body: formData,
         })
