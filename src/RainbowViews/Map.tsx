@@ -128,7 +128,7 @@ export default class Map extends Component<MapProps, MapState> {
      // formData.append("upload_preset", "euqfw3n3");
       
       const results = await (
-        await fetch(`${CLOUD_URL}&timestamp=${ts}&signature=${sig}`, {
+        await fetch(`${CLOUD_URL}&timestamp=${ts}&signature=${sig}&upload_preset=euqfw3n3`, {
           method: "POST",
           body: formData,
         })
