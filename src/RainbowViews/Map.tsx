@@ -47,7 +47,7 @@ const formItemLayout = {
 };
 
 const CLOUD_URL =
-  `https://api.cloudinary.com/v1_1/rainbowconnector/image/upload?api_key=118619554811256`;
+  `https://api.cloudinary.com/v1_1/rainbowconnector/image/upload?api_key=641312583855212`;
 
 export default class Map extends Component<MapProps, MapState> {
   constructor(props: MapProps) {
